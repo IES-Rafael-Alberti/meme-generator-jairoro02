@@ -1,3 +1,6 @@
+<?php
+    require("pruebalogin.php")
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
