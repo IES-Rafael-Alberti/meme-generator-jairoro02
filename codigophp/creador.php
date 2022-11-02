@@ -1,8 +1,5 @@
 <?php
-
     require("pruebalogin.php");
-?>
-<?php
     require("conecta.php");
     if(isset($_POST['texto1'])){
         $cajas = $_GET['boxes'];
@@ -49,11 +46,27 @@
 
         //if success show image
         if($data["success"]) {
-            echo "<img src='" . $data["data"]["url"] . "'>";
-            $nombre = $_SESSION["nombre"];
-            $sql =  "SELECT id FROM Persona WHERE nombre = :nombre";
-            $datos = array("nombre" => $nombre);
+            $imgurl= $data["data"]["url"];
+            $nombrepersona = $_SESSION["nombre"];
+            $memefinal = $conn->query("SELECT id FROM Persona WHERE nombre = '$nombrepersona'");
+            $personameme = $memefinal->fetch();
+            $memenombre = $nombrepersona . date("dmyhis") .".jpg";
+            file_put_contents("memillos/$memenombre", file_get_contents($imgurl));
+
+            $sql = "INSERT INTO MEME(ruta,id_persona) VALUES (:ruta,:id_persona)";
+
+            
+
+            $datos = array(
+                "ruta"=>"memillos/$memenombre",
+                "id_persona" => $personameme["id"]
+            );
+
             $stmt = $conn->prepare($sql);
+            $stmt->execute($datos);
+
+            header("Location: index.php");
+            exit(0);
         }
     }
 ?>

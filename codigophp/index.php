@@ -1,5 +1,7 @@
 <?php
-    require("pruebalogin.php")
+    require("pruebalogin.php");
+    require("conecta.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +13,26 @@
     <title>Página principal</title>
 </head>
 <body>
-    <a href="phpinfo.php">phpinfo()</a>
-    <a href="xdebug_info.php">xdebug_info()</a>
-    <a href="recibir-json.php"><i class="fa-sharp fa-solid fa-plus"></i></a>
+    <h1>Lista de memes</h1>
+    <a href="recibir-json.php"><i class="fa-sharp fa-solid fa-plus"></i></a><br>
+    <?php
+        $nombrepersona = $_SESSION["nombre"];
+        $buscaid = $conn->query("SELECT id FROM Persona WHERE nombre ='$nombrepersona'");
+        $encuentraid = $buscaid->fetch();
+        $id = $encuentraid["id"];
+        
+        $buscaimg = $conn->query("SELECT * FROM Meme WHERE id_persona = '$id'");
+        $encuentraimg = $buscaimg->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($encuentraimg as $img){
+            $imagen = $img["ruta"];
+            print("<table>");
+            print("<tr>");
+            print("<img width='150px' src='$imagen'>");
+            print("</td>");
+            print("</table>");
+        }
+
+    ?>
 </body>
 </html>

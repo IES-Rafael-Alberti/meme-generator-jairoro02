@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 28-10-2022 a las 12:03:40
+-- Tiempo de generación: 02-11-2022 a las 22:15:29
 -- Versión del servidor: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
--- Versión de PHP: 8.0.23
+-- Versión de PHP: 8.0.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,9 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Meme` (
   `id` int(8) NOT NULL,
-  `ruta` varchar(40) NOT NULL,
-  `id_persona` int(11) NOT NULL
+  `ruta` varchar(150) NOT NULL,
+  `id_persona` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `Meme`
+--
+
+INSERT INTO `Meme` (`id`, `ruta`, `id_persona`) VALUES
+(2, 'memillos/Jairo.jpg', 3),
+(3, 'memillos/Jairo021122095029.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -41,8 +49,8 @@ CREATE TABLE `Meme` (
 
 CREATE TABLE `Persona` (
   `id` int(8) NOT NULL,
-  `nombre` varchar(40) NOT NULL,
-  `pwd` varchar(40) NOT NULL
+  `nombre` varchar(20) NOT NULL,
+  `pwd` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -50,7 +58,8 @@ CREATE TABLE `Persona` (
 --
 
 INSERT INTO `Persona` (`id`, `nombre`, `pwd`) VALUES
-(3, 'Jairoro', '2002');
+(1, 'Luis', '12'),
+(3, 'Jairo', '45');
 
 --
 -- Índices para tablas volcadas
@@ -61,7 +70,7 @@ INSERT INTO `Persona` (`id`, `nombre`, `pwd`) VALUES
 --
 ALTER TABLE `Meme`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `unirpersona` (`id_persona`);
+  ADD KEY `ids` (`id_persona`);
 
 --
 -- Indices de la tabla `Persona`
@@ -78,7 +87,7 @@ ALTER TABLE `Persona`
 -- AUTO_INCREMENT de la tabla `Meme`
 --
 ALTER TABLE `Meme`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `Persona`
@@ -94,7 +103,7 @@ ALTER TABLE `Persona`
 -- Filtros para la tabla `Meme`
 --
 ALTER TABLE `Meme`
-  ADD CONSTRAINT `unirpersona` FOREIGN KEY (`id_persona`) REFERENCES `Persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ids` FOREIGN KEY (`id_persona`) REFERENCES `Persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

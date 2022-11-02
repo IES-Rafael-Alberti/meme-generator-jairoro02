@@ -22,7 +22,7 @@ if(isset($_POST["nombre"])){
     }
     if($stmt->rowCount() == 1) {
         session_start();
-        $_SESSION["usuario"] = $usuario;
+        $_SESSION["nombre"] = $nombre;
         session_write_close();
         header("Location: index.php");
         exit(0);
