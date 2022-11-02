@@ -1,0 +1,1 @@
+Las principales dificultades que he tenido han sido respecto a la base de datos, el sacar información de ella. Pero respecto al código php se me ha hecho fácil de entender.
